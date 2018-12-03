@@ -16,7 +16,8 @@ const CustomFlatList = ({ itemList }) => (
                     <Text>Warehouse capacity: {parseInt(item.data.storageCapacity[1])}</Text>
                     <Text>Granary capacity: {parseInt(item.data.storageCapacity[4])}</Text>                
                 </View>
-            </View>} 
+            </View>}
+            keyExtractor = {(item, index) => index.toString()}
         />
     </View>
 );
