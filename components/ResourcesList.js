@@ -6,7 +6,7 @@ const CustomFlatList = ({ itemList }) => (
         <FlatList 
             data={itemList} 
             renderItem={({item}) => 
-            <View>
+            <View style= {{paddingBottom: 20}}>
                 <Text style={styles.villageHeader}>Village name: {item.data.name}</Text>
                 <View style={styles.resourcesView}>
                     <View>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         flex: 1,
-        justifyContent:'space-evenly'
+        justifyContent:'space-evenly',
     }
   });
 
