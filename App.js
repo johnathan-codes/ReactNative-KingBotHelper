@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { TextInput, View, TouchableHighlight, Text} from 'react-native';
-import CustomFlatList  from './components/ResourcesList'
-import StylesJS from './src/features/styles';
+import CustomFlatList  from './src/components/ResourcesList.js';
+import StylesJS from './src/features/styles.js';
 
 export default class App extends React.Component{
     constructor(props){

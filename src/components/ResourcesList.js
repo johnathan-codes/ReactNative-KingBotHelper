@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, View, Text } from 'react-native';
-import StylesJS from './src/features/styles';
+import StylesJS from '../features/styles';
 
 const CustomFlatList = ({ itemList }) => (
     <View style= {StylesJS.mainFlatList} >
