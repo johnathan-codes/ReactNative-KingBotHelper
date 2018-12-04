@@ -9,7 +9,7 @@ const CustomFlatList = ({ itemList }) => (
             renderItem={({item}) => 
             <View style= {{paddingBottom: 20}}>
                 <Text style={StylesJS.villageHeader}>Village name: {item.data.name}</Text>
-                <View style={StylesJS.resourcesView}>
+                <View style={StylesJS.resourcesListView}>
                     <View>
                         <Text>Wood: {parseInt(item.data.storage[1])}</Text>
                         <Text>Clay: {parseInt(item.data.storage[2])}</Text>
