@@ -4,7 +4,7 @@ Mobile helper for https://github.com/scriptworld-git/king-bot-api
 # Install
   - git clone
   - npm install
-  - react-native eject - (re/generate android and ios folders)
+  - npm start
 
 # Run on Android emulator
   - react-native run-android
