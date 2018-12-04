@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
+import { FlatList, View, Text } from 'react-native';
+import StylesJS from './src/features/styles';
 
 const CustomFlatList = ({ itemList }) => (
-    <View style= {styles.main} >
+    <View style= {StylesJS.mainFlatList} >
         <FlatList 
             data={itemList} 
             renderItem={({item}) => 
             <View style= {{paddingBottom: 20}}>
-                <Text style={styles.villageHeader}>Village name: {item.data.name}</Text>
-                <View style={styles.resourcesView}>
+                <Text style={StylesJS.villageHeader}>Village name: {item.data.name}</Text>
+                <View style={StylesJS.resourcesView}>
                     <View>
                         <Text>Wood: {parseInt(item.data.storage[1])}</Text>
                         <Text>Clay: {parseInt(item.data.storage[2])}</Text>
@@ -31,23 +32,4 @@ const CustomFlatList = ({ itemList }) => (
         />
     </View>
 );
-
-const styles = StyleSheet.create({
-    main: {
-      flex: 1,
-      //padding: 30,
-    },
-    villageHeader: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      alignSelf: 'center'
-    },
-    resourcesView: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        flex: 1,
-        justifyContent:'space-evenly',
-    }
-  });
-
-  export default CustomFlatList;
+export default CustomFlatList;
