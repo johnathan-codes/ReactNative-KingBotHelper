@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TextInput, View, TouchableHighlight, Text} from 'react-native';
+import { Alert, TextInput, View, TouchableHighlight, Text} from 'react-native';
 import CustomFlatList  from './src/components/ResourcesList.js';
 import StylesJS from './src/features/styles.js';
 
@@ -23,9 +23,13 @@ export default class App extends React.Component{
 
     getResources(){
         let URL = `http://${this.state.serverURL}/api/data?ident=villages`;
+        
+        
+
         return fetch (URL)
             .then((data) => data.json())
-                .then((res) => {this.setState({dataSource: res})});
+                .then((res) => {this.setState({dataSource: res})}).catch((err) => {Alert.alert("Invalid URL. Check your URL!"); console.log(err);
+                ;});
     }
 
     render() {
