@@ -2,6 +2,7 @@
 Mobile helper for https://github.com/scriptworld-git/king-bot-api
 
 # Install
+  - If you want functional version get/pull master branch
   - git clone
   - npm install
 
