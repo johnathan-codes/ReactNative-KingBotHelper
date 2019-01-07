@@ -24,6 +24,11 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "description": "",
+    "githubUrl": "https://github.com/OneManDevz/KingBotHelper",
+    "android":{
+      "package": "com.OneManDevz.kingbothelper"
     }
   }
 }
