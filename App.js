@@ -1,72 +1,85 @@
-import React, {Component} from 'react';
-import { Alert, TextInput, View, TouchableHighlight, Text, AsyncStorage} from 'react-native';
-import CustomFlatList  from './src/components/ResourcesList.js';
+import React, { Component } from 'react';
+import {
+    Alert,
+    TextInput,
+    View,
+    TouchableHighlight,
+    Text,
+    AsyncStorage,
+    Console
+} from 'react-native';
 import StylesJS from './src/features/styles.js';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
 
-export default class App extends React.Component{
-    constructor(props){
+// dont store it here ! this is a bad practice, cause this data is unreachable for other components
+// just keep them in the async storage, so every component is able to get the data out of there :)
+//var urlsArray = [];
+
+export default class App extends React.Component {
+    constructor(props) {
         super(props);
-        
-        this.handleChange = this.handleChange.bind(this);
-        this.getResources = this.getResources.bind(this);
-
+        //no need for this because of the arrow function
+        //this.handleChange = this.handleChange.bind(this);
         this.state = {
-            serverURL: '',
-        }
+            serverURL: ''
+        };
     }
 
-    handleChange(url){
+    _storeData = async () => {
+        let key = await AsyncStorage.getItem('@UrlsArray');
+        // you can put objects into an if !! they are false if they are undefined or null
+        if (!key) {
+            await AsyncStorage.setItem('@UrlsArray', JSON.stringify([])); //store new array
+            return;
+        }
+        var urlsArray = JSON.parse(key);
+
+        urlsArray.push(this.state.serverURL);
+        await AsyncStorage.setItem('@UrlsArray', JSON.stringify(urlsArray)); //store new array
+        //console.log(JSON.stringify(urlsArray));
+
+        Alert.alert('Saved');
+    };
+
+    _retrieveData = async () => {
+        let urlsArray = await AsyncStorage.getItem('@UrlsArray');
+
+        if (!urlsArray) {
+            Alert.alert('There are no saved urls.');
+            return;
+        }
+        Alert.alert(urlsArray);
+    };
+
+    _clearData = async () => {
+        await AsyncStorage.clear();
+        Alert.alert("URLs deleted.");
+    }
+
+    handleChange = url => {
         this.setState({
             serverURL: url.nativeEvent.text
         });
-    }
-
-    getResources(){
-        let URL = `http://${this.state.serverURL}/api/data?ident=villages`;
-        
-        return fetch (URL)
-            .then((data) => data.json())
-                .then((res) => {this.setState({dataSource: res})}).catch((err) => {Alert.alert("Invalid URL. Check your URL!"); console.log(err);
-                ;});
-    }
+    };
 
     render() {
-        return(
+        return (
             <View style={StylesJS.main}>
                 <Text style={StylesJS.header}>Api bot helper</Text>
                 <TextInput style={StylesJS.searchInput} placeholder="http://" onChange={this.handleChange}/>
 
-                <TouchableHighlight style={StylesJS.button}  onPress={serverList.addURL(this.state.serverURL)}>
-                    <Text style={StylesJS.buttonText}>Add server</Text>
+                <TouchableHighlight style={StylesJS.button} onPress={this._storeData}>
+                    <Text style={StylesJS.buttonText}>Add URL</Text>
                 </TouchableHighlight>
-                <TouchableHighlight style={StylesJS.button}  onPress={this._retrieveData}>
-                    <Text style={StylesJS.buttonText}>Retrieve server list</Text>
+                
+                <TouchableHighlight style={StylesJS.button} onPress={this._retrieveData} >
+                    <Text style={StylesJS.buttonText}>Retrieve URL list</Text>
+                </TouchableHighlight>
+            
+                <TouchableHighlight style={StylesJS.button} onPress={this._clearData}>
+                    <Text style={StylesJS.buttonText}>Clear saved URLs</Text>
                 </TouchableHighlight>
 
-                <CustomFlatList itemList= {this.state.dataSource}/>
             </View>
-        )
+        );
     }
 }
-
-class ServerList {
-    serverURLs = [];
-
-    addURL(url){
-        this.serverURLs.push({
-            urlMobx: url
-        });
-        console.log(this.serverURLs[0].urlMobx);
-    }
-
-    getAllUrls(){
-        if(this.serverURLs.length === 0){
-            return "<none>";
-        }
-        return `Server URLs: "${this.serverURLs[0].urlMobx}".`
-    }
-}
-
-const serverList = new ServerList();

@@ -21,27 +21,6 @@ export default class App extends React.Component{
         });
     }
 
-    _saveData = async () => {
-        try{
-            await AsyncStorage.setItem(this.state.serverURL);
-        }
-        catch (error){
-            Alert.alert(error);
-        }
-    }
-
-    _retrieveData = async () => {
-        try{
-            const value = await AsyncStorage.getItem('Servers');
-            if (value !== null ) {
-                Alert.alert(value);
-            }
-        }
-        catch (error){
-            Alert.alert(error);
-        }
-    }
-
     getResources(){
         let URL = `http://${this.state.serverURL}/api/data?ident=villages`;
         
