@@ -9,6 +9,7 @@ import {
     Console
 } from 'react-native';
 import StylesJS from './src/features/styles.js';
+import ServerList from './src/components/ServerList.js';
 
 // dont store it here ! this is a bad practice, cause this data is unreachable for other components
 // just keep them in the async storage, so every component is able to get the data out of there :)
@@ -28,14 +29,13 @@ export default class App extends React.Component {
         let key = await AsyncStorage.getItem('@UrlsArray');
         // you can put objects into an if !! they are false if they are undefined or null
         if (!key) {
-            await AsyncStorage.setItem('@UrlsArray', JSON.stringify([])); //store new array
+            await AsyncStorage.setItem('@UrlsArray', JSON.stringify([this.state.serverURL])); //store new array
             return;
         }
         var urlsArray = JSON.parse(key);
 
         urlsArray.push(this.state.serverURL);
         await AsyncStorage.setItem('@UrlsArray', JSON.stringify(urlsArray)); //store new array
-        //console.log(JSON.stringify(urlsArray));
 
         Alert.alert('Saved');
     };
@@ -47,6 +47,7 @@ export default class App extends React.Component {
             Alert.alert('There are no saved urls.');
             return;
         }
+        
         Alert.alert(urlsArray);
     };
 
@@ -79,6 +80,7 @@ export default class App extends React.Component {
                     <Text style={StylesJS.buttonText}>Clear saved URLs</Text>
                 </TouchableHighlight>
 
+                <ServerList itemList= {this.state.urlsArray}/>
             </View>
         );
     }

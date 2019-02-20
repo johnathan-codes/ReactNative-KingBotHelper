@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import StylesJS from '../features/styles';
 
-const CustomFlatList = ({ itemList }) => (
+const ResourcesList = ({ itemList }) => (
     <View style= {StylesJS.mainFlatList} >
         <FlatList 
             data={itemList} 
@@ -32,4 +32,4 @@ const CustomFlatList = ({ itemList }) => (
         />
     </View>
 );
-export default CustomFlatList;
+export default ResourcesList;
